@@ -1,0 +1,40 @@
+
+# ini
+service php7.1-fpm restart
+
+# Seed
+composer.phar dump-autoload
+php artisan db:seed
+php artisan migrate:fresh --seed
+
+# Migrate
+php artisan migrate
+php artisan migrate:refresh --step=2 #back 2 steps
+php artisan migrate:rollback
+
+# XDebug not working
+php artisan clear-compiled
+php artisan cache:clear
+
+# Make Model
+php artisan make:model ProductType -m
+php artisan make:model Layout -m
+
+# Make Migration
+php artisan make:migration AddMoreProduct
+
+#Log
+tail -f storage/logs/laravel.log
+tail -f /var/log/mysql/mysql.log
+
+#Remove
+sudo rm -R /home/phat/SourceCode/laravel/public/storage/images/40837a70-a5f0-11e8-b762-513c5b8cd70c/*
+
+#export database
+mysqldump -u root -p laravel > /home/phat/dumps/laravel.sql
+mysqldump -u root -p laravel > /home/phat/SourceCode/laravel/database/sql/20-9-2018.sql
+
+#open folder
+nautilus /home/phat/Downloads
+
+https://orange-pepper.glitch.me/webhook?hub.verify_token=12345678&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe
